@@ -91,10 +91,10 @@ void Connection::writeResponse(Response *response) {
   else
     m_socket->write("failure\n");
 
-  QByteArray messageUtf8 = response->message().toUtf8();
-  QString messageLength = QString::number(messageUtf8.size()) + "\n";
+  QString messageLength = QString::number(response->message().size()) + "\n";
   m_socket->write(messageLength.toAscii());
-  m_socket->write(messageUtf8);
+  m_socket->write(response->message());
+
   delete response;
 }
 

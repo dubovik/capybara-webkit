@@ -15,6 +15,6 @@ void Source::start(QStringList &arguments) {
 }
 
 void Source::sourceLoaded() {
-  emit finished(new Response(true, reply->readAll()));
+  emit finished(new Response(true, reply->readAll(), true));
 }
 
