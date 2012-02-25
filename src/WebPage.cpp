@@ -22,6 +22,9 @@ WebPage::WebPage(QObject *parent) : QWebPage(parent) {
   connect(this, SIGNAL(unsupportedContent(QNetworkReply*)),
       this, SLOT(handleUnsupportedContent(QNetworkReply*)));
   this->setViewportSize(QSize(1680, 1050));
+
+  setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+  connect(this, SIGNAL(linkClicked(QUrl)), SLOT(linkClicked(QUrl)));
 }
 
 void WebPage::setCustomNetworkAccessManager() {
@@ -240,4 +243,9 @@ QString WebPage::pageHeaders() {
 void WebPage::handleUnsupportedContent(QNetworkReply *reply) {
   UnsupportedContentHandler *handler = new UnsupportedContentHandler(this, reply);
   Q_UNUSED(handler);
+}
+
+void WebPage::linkClicked(const QUrl &url) {
+  qDebug()<<"linkClicked"<<url;  
+  this->currentFrame()->load(url);
 }

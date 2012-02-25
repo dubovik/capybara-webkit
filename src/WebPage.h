@@ -19,7 +19,7 @@ class WebPage : public QWebPage {
     bool ignoreSslErrors();
     QString consoleMessages();
     void resetConsoleMessages();
-
+	
   public slots:
     bool shouldInterruptJavaScript();
     void injectJavascriptHelpers();
@@ -32,6 +32,7 @@ class WebPage : public QWebPage {
     void ignoreSslErrors(QNetworkReply *reply, const QList<QSslError> &);
     void handleUnsupportedContent(QNetworkReply *reply);
     void resetSettings();
+    void linkClicked(const QUrl &url);
 
   signals:
     void pageFinished(bool);
@@ -55,4 +56,3 @@ class WebPage : public QWebPage {
     bool m_ignoreSslErrors;
     QStringList m_consoleMessages;
 };
-
